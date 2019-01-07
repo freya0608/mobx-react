@@ -23,3 +23,5 @@ const config={
     },
     devtool:'inline-source-map'
 };
+
+export default  config;
