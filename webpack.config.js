@@ -1,9 +1,8 @@
 const path = require('path');
 
 const config={
-
     mode:'development',
-    entry:path.resolve(__dirname,'src/index.jsx'),
+    entry:path.resolve(__dirname,'src/index.js'),
     output:{
         path:path.resolve(__dirname,'dist'),
         filename:'main.js'
@@ -15,8 +14,8 @@ const config={
             use:{
                 loader:'babel-loader',
                 options:{
-                    presets:['env'],
-                    plugins:['transform-decorators-legacy']
+                    presets:['env','react'],
+                    plugins:['transform-decorators-legacy','']
                 }
             }
         }]
@@ -24,4 +23,4 @@ const config={
     devtool:'inline-source-map'
 };
 
-export default  config;
+module.exports =  config;
