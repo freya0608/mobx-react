@@ -77,8 +77,7 @@ class Store {
 
 var store = new Store();
 
-
-@observable
+@observer
 class TodoList extends Component{
     static propTypes = {
         store:PropTypes.shape({
@@ -101,7 +100,7 @@ class TodoList extends Component{
         })
 
     };
-    handleChange = ()=>{
+    handleChange = (e)=>{
         var inputValue = e.target.value;
         this.setState({
             inputValue,
@@ -110,21 +109,21 @@ class TodoList extends Component{
     };
     render(){
         return <div className="todo-list">
-            <header>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" onChange={this.handleChange}
-                           value={this.state.inputValue}
-                           className="input"
-                           placeholder="what needs to be finished"
-                    />
-                </form>
-            </header>
-            <ul></ul>
-            <footer></footer>
-        </div>
+                    <header>
+                        <form onSubmit={this.handleSubmit}>
+                            <input type="text" onChange={this.handleChange}
+                                   value={this.state.inputValue}
+                                   className="input"
+                                   placeholder="what needs to be finished"
+                            />
+                        </form>
+                    </header>
+                    <ul></ul>
+                    <footer></footer>
+             </div>
     }
 
 }
 
 
-ReactDom.rendenr(< TodoList store={store}/>,document.querySelector('#root'));
+ReactDom.render(< TodoList store={store}/>,document.querySelector('#root'));
