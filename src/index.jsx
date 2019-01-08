@@ -85,7 +85,7 @@ var store = new Store();
 @observer
 class TodoItem extends Component {
     static propTypes = {
-        todo:propTypes.shape({
+        todo:PropTypes.shape({
             id:PropTypes.number.isRequired,
             title:PropTypes.string.isRequired,
             finished:PropTypes.bool.isRequired,
@@ -94,10 +94,12 @@ class TodoItem extends Component {
     };
     render(){
         const todo  = this.props.todo;
-        return <div></div>
+        console.log(todo);
+        return <div>{todo.title}</div>
     }
 
 }
+
 
 
 @observer
