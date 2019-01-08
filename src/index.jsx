@@ -85,10 +85,17 @@ var store = new Store();
 @observer
 class TodoItem extends Component {
     static propTypes = {
-        render(){
-            return <div></div>
-        }
+        todo:propTypes.shape({
+            id:PropTypes.number.isRequired,
+            title:PropTypes.string.isRequired,
+            finished:PropTypes.bool.isRequired,
+        }).isRequired
+
     };
+    render(){
+        const todo  = this.props.todo;
+        return <div></div>
+    }
 
 }
 
