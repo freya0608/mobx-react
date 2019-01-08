@@ -55,7 +55,7 @@ import {observable,action,computed} from 'mobx';
 import React,{Component,Fragment} from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
-import { observer, PropTypes as ObservablePropTypes} from 'mobx-react'
+import { observer, PropTypes as ObservablePropTypes} from 'mobx-react';
 
 
 class Todo {
@@ -73,9 +73,25 @@ class Store {
     @action.bound createTodo(title){
         this.todos.unshift(new Todo(title));
     }
+
+
+    @computed get left(){
+        return this.todos.filter(todo => !todo.finished).length;
+    }
 }
 
 var store = new Store();
+
+@observer
+class TodoItem extends Component {
+    static propTypes = {
+        render(){
+            return <div></div>
+        }
+    };
+
+}
+
 
 @observer
 class TodoList extends Component{
@@ -108,6 +124,8 @@ class TodoList extends Component{
 
     };
     render(){
+        const store = this.props.store;
+        const todos = store.todos;
         return <div className="todo-list">
                     <header>
                         <form onSubmit={this.handleSubmit}>
@@ -118,8 +136,17 @@ class TodoList extends Component{
                             />
                         </form>
                     </header>
-                    <ul></ul>
-                    <footer></footer>
+                    <ul>
+                        {
+                            todos.map(todo=>{
+                                return <li key={todo.id} className="todo-item">
+                                    <TodoItem todo={todo}/>
+                                </li>
+
+                            })
+                        }
+                    </ul>
+                    <footer>{store.left} item(s) unfinished</footer>
              </div>
     }
 
