@@ -67,12 +67,22 @@ class Todo {
     constructor(title){
         this.title = title;
     }
+
+
+    @action.bound toggle(){
+        this.finished = !this.finished;
+    }
 }
 class Store {
     @observable todos = [];
     @action.bound createTodo(title){
         this.todos.unshift(new Todo(title));
     }
+
+    @action.bound removeTodo(todo){
+        this.todos.remove(todo);
+    }
+
 
 
     @computed get left(){
@@ -92,10 +102,21 @@ class TodoItem extends Component {
         }).isRequired
 
     };
+    handleClick = (e)=>{
+        this.props.todo.toggle()
+
+    }
     render(){
         const todo  = this.props.todo;
         console.log(todo);
-        return <div>{todo.title}</div>
+        return <Fragment>
+                <input type="checkbox"
+            className="toggle" 
+            checked={todo.finished}
+            onClick={this.handleClick}/>
+            <span className={['title',todo.finished && 'finished'].join(' ')}>{todo.title}</span>
+        </Fragment>
+        
     }
 
 }
@@ -150,6 +171,7 @@ class TodoList extends Component{
                             todos.map(todo=>{
                                 return <li key={todo.id} className="todo-item">
                                     <TodoItem todo={todo}/>
+                                    <span className="delete" onClick={e=>store.removeTodo(todo)}>X</span>
                                 </li>
 
                             })
