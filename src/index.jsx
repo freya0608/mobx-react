@@ -57,17 +57,14 @@ import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import { observer, PropTypes as ObservablePropTypes} from 'mobx-react';
 
-
 class Todo {
     id = Math.random();
     @observable title = '';
     @observable finished = false;
 
-
     constructor(title){
         this.title = title;
     }
-
 
     @action.bound toggle(){
         this.finished = !this.finished;
@@ -82,8 +79,6 @@ class Store {
     @action.bound removeTodo(todo){
         this.todos.remove(todo);
     }
-
-
 
     @computed get left(){
         return this.todos.filter(todo => !todo.finished).length;
@@ -100,11 +95,9 @@ class TodoItem extends Component {
             title:PropTypes.string.isRequired,
             finished:PropTypes.bool.isRequired,
         }).isRequired
-
     };
-    handleClick = (e)=>{
+    handleClick = ()=>{
         this.props.todo.toggle()
-
     }
     render(){
         const todo  = this.props.todo;
@@ -116,11 +109,9 @@ class TodoItem extends Component {
             onClick={this.handleClick}/>
             <span className={['title',todo.finished && 'finished'].join(' ')}>{todo.title}</span>
         </Fragment>
-        
     }
 
 }
-
 
 
 @observer
@@ -144,7 +135,6 @@ class TodoList extends Component{
         this.setState({
             inputValue:''
         })
-
     };
     handleChange = (e)=>{
         var inputValue = e.target.value;
@@ -180,8 +170,5 @@ class TodoList extends Component{
                     <footer>{store.left} item(s) unfinished</footer>
              </div>
     }
-
 }
-
-
 ReactDom.render(< TodoList store={store}/>,document.querySelector('#root'));
